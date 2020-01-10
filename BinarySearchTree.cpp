@@ -2,7 +2,7 @@
 // Name        : BinarySearchTree.cpp
 // Author      : Nachiket Kanore
 // Version     :
-// Copyright   : Do not copy my code!
+// Copyright   : 
 // Description : Hello World in C++, Ansi-style
 //============================================================================
 
