@@ -2,7 +2,7 @@
 // Name        : BinarySearchTree.cpp
 // Author      : Nachiket Kanore
 // Version     :
-// Copyright   : 
+// Copyright   : Do not copy my code!
 // Description : Hello World in C++, Ansi-style
 //============================================================================
 
@@ -227,90 +227,81 @@ int main() {
 
 	BST tree;
 
-	cout << "Enter the number of nodes to insert in the tree : ";
-	int cnt;	cin >> cnt;
-	while(cnt--){
-		char key[sz];	char val[sz];
-		cout << "Enter the key : ";	cin >> key;
-		cout << "Enter the value : ";	cin >> val;
-		nodeptr temp = new node(key , val);
-		tree.insert(tree.giveRoot() , temp);
+	char choice = 'y';
+
+	while(choice == 'y'){
+		int tc;
+		cout << "Select operation to perform on the tree :" << endl;
+		cout << "1) Create a BST " << endl;
+		cout << "2) Search for a keyword" << endl;
+		cout << "3) Modify a keyword" << endl;
+		cout << "4) See the contents : " << endl;
+		cout << "5) Delete a keyword in dictionary " << endl;
+
+		cin >> tc;
+		if(tc == 1){
+			cout << "Enter the number of nodes to insert in the tree : ";
+			int cnt;	cin >> cnt;
+			while(cnt--){
+				char key[sz];	char val[sz];
+				cout << "Enter the key : ";	cin >> key;
+				cout << "Enter the value : ";	cin >> val;
+				nodeptr temp = new node(key , val);
+				tree.insert(tree.giveRoot() , temp);
+			}
+
+		}else if(tc == 2){
+				cout << "Enter the word you want to search meaning for :";
+				char ch[sz];	cin >> ch;
+
+				tree.search(tree.giveRoot() ,ch);
+		}else if(tc == 3){
+				char ch[sz];
+				cout << "Enter the word you want to modify the meaning of : ";
+				cin >> ch;
+				char mean[sz];
+				cout << "Its meaning : ";
+				cin >> mean;
+
+				tree.modify(tree.giveRoot() , ch , mean);
+		}else if(tc == 4){
+				cout << "Arrangement of key-values in dictionary is : " << endl;
+				tree.inorder(tree.giveRoot());
+				cout << '\n';
+		}else if(tc == 5){
+				char ch[sz];
+				cout << "Enter the word you want to delete the value : ";
+				cin >> ch;
+				tree.Delete(ch);
+
+				cout << "Arrangement of key-values in dictionary is : " << endl;
+				tree.inorder(tree.giveRoot());
+				cout << '\n';
+
+		}else{
+			cout << "Wrong option chosen" << endl;
+		}
+
+		cout << "Do you want to continue ?";	cin >> choice;
 	}
-
-	///////////////////////////////////////////////////////////////////////// Sorted list
-	cout << "Arrangement of key-values in dictionary is : " << endl;
-
-	tree.inorder(tree.giveRoot());
-
-	cout << '\n' << '\n';
-
-	///////////////////////////////////////////////////////////////////////// Search something
-	cout << "Enter the word you want to search meaning for :";
-	char ch[sz];	cin >> ch;
-
-	tree.search(tree.giveRoot() ,ch);
-
-	///////////////////////////////////////////////////////////////////////// Modify
-	cout << "Enter the word you want to modify the meaning of : ";
-	cin >> ch;
-	char mean[sz];
-	cout << "Its meaning : ";
-	cin >> mean;
-
-	tree.modify(tree.giveRoot() , ch , mean);
-
-	///////////////////////////////////////////////////////////////////////// Delete by value
-
-	cout << "Enter the word you want to delete the value : ";
-	cin >> ch;
-	tree.Delete(ch);
-
-	///////////////////////////////////////////////////////////////////////// Sorted list
-	cout << "Arrangement of key-values in dictionary is : " << endl;
-
-	tree.inorder(tree.giveRoot());
-
-	cout << '\n' << '\n';
-
-	///////////////////////////////////////////////////////////////////////// Delete by value
-
-	cout << "Enter the word you want to delete the value : ";
-	cin >> ch;
-	tree.Delete(ch);
-
-	///////////////////////////////////////////////////////////////////////// Sorted list
-	cout << "Arrangement of key-values in dictionary is : " << endl;
-
-	tree.inorder(tree.giveRoot());
-
-	cout << '\n' << '\n';
-	///////////////////////////////////////////////////////////////////////// Delete by value
-
-	cout << "Enter the word you want to delete the value : ";
-	cin >> ch;
-	tree.Delete( ch);
-
-	///////////////////////////////////////////////////////////////////////// Sorted list
-	cout << "Arrangement of key-values in dictionary is : " << endl;
-
-	tree.inorder(tree.giveRoot());
-
-	cout << '\n' << '\n';
-
-	///////////////////////////////////////////////////////////////////////// Delete by value
-
-	cout << "Enter the word you want to delete the value : ";
-	cin >> ch;
-	tree.Delete(ch);
-
-	///////////////////////////////////////////////////////////////////////// Sorted list
-	cout << "Arrangement of key-values in dictionary is : " << endl;
-
-	tree.inorder(tree.giveRoot());
-
-	cout << '\n' << '\n';
 
 
 	return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
