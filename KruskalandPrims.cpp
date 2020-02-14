@@ -1,5 +1,5 @@
 //============================================================================
-// Name        : 
+// Name        : cpp.cpp
 // Author      : Nachiket Kanore
 // Version     :
 // Copyright   : Your copyright notice
@@ -8,13 +8,48 @@
 
 #include <iostream>
 #include <iomanip>
+#include <bits/stdc++.h>
 using namespace std;
 
 const int N = 50;
 const int inf = 1e5;
 
 struct edge{
-	int from , to , w;
+	int from, to, w;
+};
+
+struct DSU
+{
+
+	int par[N];
+
+	void init(int n)
+	{
+		for(int i=1;i<=n;i++)
+		{
+			par[i]=i;
+		}
+	}
+
+	int getPar(int k)
+	{
+		while(k!=par[k])
+		{
+			par[k]=par[par[k]];
+			k=par[k];
+		}
+		return k;
+	}
+
+	bool unite(int u, int v)
+	{
+		int par1=getPar(u), par2=getPar(v);
+
+		if(par1==par2)
+			return false;
+		par[par1]=par[par2];
+		return true;
+	}
 };
 
 class graph{
@@ -64,8 +99,7 @@ class graph{
 			cout << "Enter the number of cities :";	cin >> nodes;
 			cout << "Enter the number of connections :";	cin >> edges;
 
-
-
+			int ind = 1;
 			cout << "Enter the edges of network: " << endl;
 			cout << "{From , to , weight}" << endl;
 			int e = edges;
@@ -73,11 +107,46 @@ class graph{
 				int from , to;	int w;
 				cin >> from;	cin >> to;	cin >> w;
 				int ind1 = from , ind2 = to;
+				edgeList[ind++] = {from , to , w};
 				mat[ind1][ind2] = w , mat[ind2][ind1] = w;
 				edgeList[e].from = ind1 , edgeList[e].to = ind2 , edgeList[e].w = w;
 			}
 		}
 
+		void MST_KRUSKAL(){
+
+			for(int i = 1; i <= edges; i++){
+				for(int j = i + 1; j <= edges; j++){
+					if(edgeList[i].w > edgeList[j].w)
+						swap(edgeList[i] , edgeList[j]);
+				}
+			}
+			int cost = 0;
+			edge final[N];
+			int ind = 1;
+
+			DSU dsu;
+			dsu.init(nodes);
+
+			for(int i = 1; i <= edges; i++){
+				int u = edgeList[i].from ,v = edgeList[i].to;
+				int w = edgeList[i].w;
+
+				if(dsu.unite(u , v)){
+					cost += w;
+					final[ind++] = {u , v , w};
+				}
+
+			}
+
+			cout << "MST-Kruskal weight = " << cost << '\n';
+
+			for(int i = 1; i < ind; i++){
+				cout << final[i].from << " " << final[i].to << " ";
+				cout << final[i].w << endl;
+			}
+
+		}
 
 
 		void MST_PRIMS(){
@@ -117,7 +186,7 @@ class graph{
 
 			}
 
-			cout << "Spanning tree of given graph :" << endl;
+			cout << "MST-Prims of given graph :" << endl;
 			cout << "Cost = " << cost << endl;
 			for(int i = 1; i <= nodes-1; i++){
 				result[spanning[i].from][spanning[i].to] = spanning[i].w;
@@ -128,8 +197,7 @@ class graph{
 			}
 				cout << "=================" << endl;
 				cout << "=================" << endl;
-				cout << "Adjacency matrix of spanning tree :" << endl;
-
+				printMat2();
 
 
 		}
@@ -141,57 +209,18 @@ int main() {
 
 	graph g;
 	g.init();
+
+
+	cout << "====================" << '\n';
+
+	g.MST_KRUSKAL();
+
+	cout << "====================" << '\n';
+
 	g.MST_PRIMS();
 
-
+	cout << "====================" << '\n';
 
 	return 0;
 }
-
-
-
-/*
- 1 2 10
-1 3 11
-2 3 12
-2 4 13
-3 5 16
-3 6 14
-4 5 17
-5 6 15
-Answer:
-Spanning tree of given graph :
-Cost = 63
-1 2 10
-1 3 11
-2 4 13
-3 6 14
-6 5 15
---------
-1 2 10
-2 3 20
-3 5 30
-4 5 1
-1 4 5
-Spanning tree of given graph :
-Cost = 36
-1 4 5
-4 5 1
-1 2 10
-2 3 20
-
- */
-
-
-
-
-
-
-
-
-
-
-
-
-
 
